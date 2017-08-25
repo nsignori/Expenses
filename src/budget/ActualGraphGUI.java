@@ -32,7 +32,6 @@ public class ActualGraphGUI extends GUI {
 		gpMain.add(graph, 0, 0);
 	}
 
-	@SuppressWarnings("unchecked")
 	private void updateGraph() {
 		int numOfDays = 0;
 		HashMap<String, Double> prices = null;
