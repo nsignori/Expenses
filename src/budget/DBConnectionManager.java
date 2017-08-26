@@ -231,8 +231,8 @@ public class DBConnectionManager {
 		return amount;
 	}
 
-	public HashMap<String, Double> getPurchasesSince(int numOfDays) {
-		HashMap<String, Double> prices = new HashMap<String, Double>();
+	public ArrayList<Purchase> getPurchasesSince(int numOfDays) {
+		ArrayList<Purchase> prices = new ArrayList<Purchase>();
 		try {
 			psGetPurchasesSince.setDate(1, java.sql.Date.valueOf(LocalDate.now().minusDays(numOfDays)));
 
@@ -240,6 +240,9 @@ public class DBConnectionManager {
 			
 			while (rs.next()) {
 				String date = rs.getDate(1).toLocalDate().toString();
+				double price = rs.getDouble(2);
+				String category = rs.getString(3);
+				
 				if(prices.containsKey(date)) {
 					prices.put(date, prices.get(date) + rs.getDouble(2));
 				} else {
@@ -251,46 +254,5 @@ public class DBConnectionManager {
 		}
 		
 		return prices;
-	}
-
-	public ArrayList<CatPurchase> getCatPurchasesSince(int numOfDays) {
-		ArrayList<CatPurchase> catPurchases = new ArrayList<CatPurchase>();
-		try {
-			psGetPurchasesSince.setDate(1, java.sql.Date.valueOf(LocalDate.now().minusDays(numOfDays)));
-
-			ResultSet rs = psGetPurchasesSince.executeQuery();
-			
-			while (rs.next()) {
-				boolean found = false;
-				for(int i = 0; i < catPurchases.size(); i++) {
-					if(catPurchases.get(i).getCategory().equals(rs.getString(3))) {
-						found = true;
-						break;
-					}
-				}
-				if(!found) {
-					catPurchases.add(new CatPurchase(rs.getString(3)));
-				}
-				
-				int id = -1;
-				for(int i = 0; i < catPurchases.size(); i++) {
-					if(rs.getString(3).equals(catPurchases.get(i).getCategory())) {
-						id = i;
-					}
-				}
-				
-				HashMap<String, Double> temp = catPurchases.get(id).getPrices();
-				String date = rs.getDate(1).toLocalDate().toString();
-				
-				if(temp.containsKey(date)) {
-					temp.put(date, temp.get(date) + rs.getDouble(2));
-				} else {
-					temp.put(date, rs.getDouble(2));
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return catPurchases;
 	}
 }
