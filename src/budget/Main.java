@@ -2,7 +2,6 @@ package budget;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javafx.application.Application;
 
@@ -53,7 +52,7 @@ public class Main {
 		return db.getAmountSpentSince(date);
 	}
 
-	public static HashMap<String, Double> getPurchasesSince(int numOfDays) {
+	public static ArrayList<Purchase> getPurchasesSince(int numOfDays) {
 		return db.getPurchasesSince(numOfDays);
 	}
 
@@ -95,9 +94,5 @@ public class Main {
 
 	public static void deletePurchase(int id) {
 		db.deletePurchase(id);
-	}
-
-	public static ArrayList<CatPurchase> getCatPurchasesSince(int numOfDays) {
-		return db.getCatPurchasesSince(numOfDays);
 	}
 }

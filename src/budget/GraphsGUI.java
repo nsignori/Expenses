@@ -3,7 +3,6 @@ package budget;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -16,8 +15,6 @@ public class GraphsGUI extends GUI {
 	
 	private Stage stgGraph = new Stage();
 
-	private CheckBox cbByCategory = new CheckBox("Break Down by Categories");
-
 	public GraphsGUI() {
 		super("Graphs", 700, 600, true);
 
@@ -29,8 +26,6 @@ public class GraphsGUI extends GUI {
 		btnViewMonth.setOnAction(e -> changeView(e));
 		btnViewYear.setOnAction(e -> changeView(e));
 		btnViewAllTime.setOnAction(e -> changeView(e));
-		
-		gpMain.add(cbByCategory, 0, 4);
 		
 		stgGraph.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override public void handle(WindowEvent t) {
@@ -52,7 +47,7 @@ public class GraphsGUI extends GUI {
 		
 		((Button)(e.getSource())).setDisable(true);
 		
-		GUI graphGUI = new ActualGraphGUI(((Button)(e.getSource())).getText(), cbByCategory.isSelected());
+		GUI graphGUI = new ActualGraphGUI(((Button)(e.getSource())).getText());
 		stgGraph.setScene(graphGUI.getScene());
 		stgGraph.setTitle(graphGUI.getName());
 		

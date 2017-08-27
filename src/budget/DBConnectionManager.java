@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class DBConnectionManager {
 	// Sets address of DB based on location
@@ -239,15 +238,11 @@ public class DBConnectionManager {
 			ResultSet rs = psGetPurchasesSince.executeQuery();
 			
 			while (rs.next()) {
-				String date = rs.getDate(1).toLocalDate().toString();
+				LocalDate date = rs.getDate(1).toLocalDate();
 				double price = rs.getDouble(2);
 				String category = rs.getString(3);
 				
-				if(prices.containsKey(date)) {
-					prices.put(date, prices.get(date) + rs.getDouble(2));
-				} else {
-					prices.put(date, rs.getDouble(2));
-				}
+				prices.add(new Purchase(date, category, price));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
