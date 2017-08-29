@@ -274,7 +274,7 @@ public class AddPurchaseGUI extends GUI {
 
 					if(file != null && id != -1) {
 						try {
-							Files.move(file.toPath(), new File("D:\\Documents\\Expense Receipts\\" + id + ".jpg").toPath(), StandardCopyOption.REPLACE_EXISTING);
+							Files.move(file.toPath(), new File("D:\\Pictures\\Expense Receipts\\" + id + ".jpg").toPath(), StandardCopyOption.REPLACE_EXISTING);
 							clear();
 						} catch (IOException e) {
 							lblError.setText("Receipt picture could not be moved.");

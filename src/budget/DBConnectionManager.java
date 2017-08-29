@@ -206,15 +206,6 @@ public class DBConnectionManager {
 		return purchases;
 	}
 
-	public void deletePurchase(int id) {
-		try {
-			psDeletePurchase.setInt(1, id);
-			psDeletePurchase.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public double getAmountSpentSince(LocalDate date) {
 		double amount = -1;
 		try {

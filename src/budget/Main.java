@@ -34,9 +34,6 @@ public class Main {
 		case "ViewGraphs":
 			SetUp.setStage(new GraphsGUI());
 			break;
-		case "EditPurchase":
-			SetUp.setStage(new EditPurchasesGUI(Integer.parseInt(param)));
-			break;
 		default:
 			System.out.println("Key not found: " + key);
 			break;
@@ -90,9 +87,5 @@ public class Main {
 
 	public static ArrayList<Purchase> getPurchases() {
 		return db.getPurchases();
-	}
-
-	public static void deletePurchase(int id) {
-		db.deletePurchase(id);
 	}
 }
