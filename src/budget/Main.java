@@ -35,7 +35,7 @@ public class Main {
 			SetUp.setStage(new GraphsGUI());
 			break;
 		default:
-			System.out.println("Key not found: " + key);
+			System.out.println("Key not found: " + key + param);
 			break;
 		}
 	}

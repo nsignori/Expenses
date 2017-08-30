@@ -29,7 +29,6 @@ public class DBConnectionManager {
 	private PreparedStatement psGetPurchase;
 	private PreparedStatement psAddSubscription;
 	private PreparedStatement psGetPurchases;
-	private PreparedStatement psDeletePurchase;
 	private PreparedStatement psGetAmountSince;
 	private PreparedStatement psGetPurchasesSince;
 
@@ -55,7 +54,6 @@ public class DBConnectionManager {
 			psGetPurchase = conn.prepareStatement("SELECT Id FROM expenses.`purchases` WHERE Date = ? AND Category = ? AND Items = ? AND PurchaseLocation = ? AND Price = ? AND PurchaseMethod = ?;");
 			psAddSubscription = conn.prepareStatement("INSERT INTO expenses.`subscriptions` (StartDate, Category, Items, PurchaseLocation, Price, PurchaseMethod, RecurranceRate) VALUES (?, ?, ?, ?, ?, ?, ?);");
 			psGetPurchases = conn.prepareStatement("SELECT * FROM expenses.`purchases`;");
-			psDeletePurchase = conn.prepareStatement("DELETE FROM expenses.`purchases` WHERE Id=?;");
 			psGetAmountSince = conn.prepareStatement("SELECT sum(Price) FROM purchases WHERE (Date > ?);");
 			psGetPurchasesSince = conn.prepareStatement("SELECT Date, Price, Category FROM purchases WHERE (Date > ?);");
 		} catch (SQLException e) {
