@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 
 public class AddPurchaseGUI extends GUI {
 	private DatePicker dpPurchaseDate = new DatePicker();
+	private Button btnNextDay = new Button("->");
 	private ComboBox<String> cbCategory = new ComboBox<String>();
 	private TextField txtItems = new TextField();
 	private ComboBox<String> cbPurchaseLocation = new ComboBox<String>();
@@ -52,6 +53,10 @@ public class AddPurchaseGUI extends GUI {
 
 		dpPurchaseDate.setValue(LocalDate.now());
 		dpPurchaseDate.setEditable(false);
+		
+		btnNextDay.setOnAction(e -> {
+			dpPurchaseDate.setValue(dpPurchaseDate.getValue().plusDays(1));
+		});
 
 		cbCategory.setPrefWidth(150);
 		cbCategory.setEditable(true);
@@ -142,6 +147,7 @@ public class AddPurchaseGUI extends GUI {
 
 		gpMain.add(new Label("Date of Purchase: "), 0, 0);
 		gpMain.add(dpPurchaseDate, 1, 0);
+		gpMain.add(btnNextDay, 2, 0);
 		gpMain.add(new Label("Category: "), 0, 1);
 		gpMain.add(cbCategory, 1, 1);
 		gpMain.add(new Label("Description of Items: "), 0, 2, 2, 1);
@@ -294,7 +300,6 @@ public class AddPurchaseGUI extends GUI {
 	}
 
 	private void clear() {
-		dpPurchaseDate.setValue(LocalDate.now());
 		cbCategory.getSelectionModel().clearSelection();
 		cbCategory.getEditor().clear();
 		txtItems.clear();
