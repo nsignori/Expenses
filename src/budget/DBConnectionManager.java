@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 public class DBConnectionManager {
 	// Sets address of DB based on location
-	private static final String DB_COMP_NAME = "localhost";
+	private static final String EXT_IP = "10.34.21.121";
 
 	private static DBConnectionManager db = null;
-	private static String dbURL = "jdbc:mysql://" + DB_COMP_NAME + "/expenses";
+	private static final String dbURL = "jdbc:mysql://" + EXT_IP + "/expenses";
 
-	private static final String user = "expenseApp";
+	private static final String user = "ExpenseApp";
 	private static final String password = "co3oNEDIROGOPogoB8Wixiz4YEvan2";
 	private Connection conn;
 
@@ -35,10 +35,18 @@ public class DBConnectionManager {
 	private DBConnectionManager() throws ClassNotFoundException, SQLException {
 		DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 		Class.forName("com.mysql.jdbc.Driver");
+		DriverManager.setLoginTimeout(10);
 
-		conn = DriverManager.getConnection(dbURL, user, password);
-
-		makePS();
+		try {
+			conn = DriverManager.getConnection(dbURL, user, password);
+			makePS();
+		} catch(SQLException e) {
+			System.err.println("Failed External " + e);
+		}
+	}
+	
+	public boolean isConnected() {
+		return db.conn != null;
 	}
 
 	// Create all the PreparedStatements
@@ -211,7 +219,7 @@ public class DBConnectionManager {
 
 			ResultSet rs = psGetAmountSince.executeQuery();
 			rs.next();
-			
+
 			amount = rs.getDouble(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -225,18 +233,18 @@ public class DBConnectionManager {
 			psGetPurchasesSince.setDate(1, java.sql.Date.valueOf(LocalDate.now().minusDays(numOfDays)));
 
 			ResultSet rs = psGetPurchasesSince.executeQuery();
-			
+
 			while (rs.next()) {
 				LocalDate date = rs.getDate(1).toLocalDate();
 				double price = rs.getDouble(2);
 				String category = rs.getString(3);
-				
+
 				prices.add(new Purchase(date, category, price));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return prices;
 	}
 }

@@ -15,12 +15,12 @@ public class Main {
 	public static void setStage(String input) {
 		String key = input;
 		String param = null;
-		
+
 		if(input.contains(" ")) {
 			key = input.substring(0, input.indexOf(" "));
 			param = input.substring(input.indexOf(" ") + 1);
 		}
-		
+
 		switch(key) {
 		case "Home":
 			SetUp.setStage(new HomeGUI());
@@ -44,7 +44,7 @@ public class Main {
 		db.close();
 		System.exit(0);
 	}
-	
+
 	public static double getAmountSpentSince(LocalDate date) {
 		return db.getAmountSpentSince(date);
 	}

@@ -2,6 +2,8 @@ package budget;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -23,7 +25,16 @@ public class SetUp extends Application {
 			}
 		});
 
-		setStage(new HomeGUI());
+		try {
+			setStage(new HomeGUI());
+		} catch (NullPointerException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Failed");
+			alert.setHeaderText("Database Connection Failure");
+			// TODO Make it ask for new server ip
+			alert.setContentText("Program failed to connect to exertenal or internal database.");
+			alert.showAndWait();
+		}
 	}
 
 	public static void setStage(GUI scene) {
