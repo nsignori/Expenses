@@ -44,9 +44,19 @@ public class DBConnectionManager {
 			System.err.println("Failed External " + e);
 		}
 	}
-	
-	public boolean isConnected() {
-		return db.conn != null;
+
+	public String getIp() {
+		String ret = null;
+
+		try {
+			String url;
+			url = conn.getMetaData().getURL();
+			ret = url.substring(url.indexOf("//") + 2, url.indexOf("/e"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ret;
 	}
 
 	// Create all the PreparedStatements

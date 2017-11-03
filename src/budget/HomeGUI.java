@@ -31,5 +31,6 @@ public class HomeGUI extends GUI {
 		gpMain.add(new Label("In the last week: $" + Main.getAmountSpentSince(LocalDate.now().minusWeeks(1))), 0, 5);
 		gpMain.add(new Label("This month: $" + Main.getAmountSpentSince(LocalDate.now().minusDays(LocalDate.now().getDayOfMonth()))), 0, 6);
 		gpMain.add(new Label("In the last month: $" + Main.getAmountSpentSince(LocalDate.now().minusMonths(1))), 0, 7);
+		gpMain.add(new Label("\nDB IP: " + Main.getIp()), 0, 8);
 	}
 }

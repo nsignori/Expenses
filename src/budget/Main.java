@@ -40,6 +40,10 @@ public class Main {
 		}
 	}
 
+	public static String getIp() {
+		return db.getIp();
+	}
+	
 	public static void exit() {
 		db.close();
 		System.exit(0);
